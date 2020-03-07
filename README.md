@@ -1,0 +1,2 @@
+# EdneyTemplate
+Spring Boot + GraphQL
