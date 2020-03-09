@@ -8,8 +8,6 @@ import io.jsonwebtoken.Jwts;
 
 @Component
 public class JwtValidator {
-
-
     private String secret = "Graphql";
 
     public User validate(String token) {
@@ -20,11 +18,11 @@ public class JwtValidator {
                     .parseClaimsJws(token)
                     .getBody();
 
-            jwtUser = new User();
-
-            jwtUser.setUserName(body.getSubject());
-            jwtUser.setPassword((String) body.get("userId"));
-            jwtUser.setRole((String) body.get("role"));
+            String userName = body.getSubject();
+			String password = (String) body.get("password");
+			String role = (String) body.get("role");
+			String email = (String) body.get("email");
+			jwtUser = new User(userName, password, role, email);
         }
         catch (Exception e) {
             System.out.println(e);

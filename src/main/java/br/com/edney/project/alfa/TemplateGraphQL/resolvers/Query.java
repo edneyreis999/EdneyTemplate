@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
-import br.com.edney.project.alfa.TemplateGraphQL.exception.UserNotFoundException;
+import br.com.edney.project.alfa.TemplateGraphQL.exception.user.UserNotFoundException;
 import br.com.edney.project.alfa.TemplateGraphQL.model.User;
 import br.com.edney.project.alfa.TemplateGraphQL.repository.UserRepository;
 

@@ -6,19 +6,25 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class JwtUserDetails implements UserDetails {
 	private static final long serialVersionUID = 6040305095125536455L;
 	private String userName;
     private String token;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
+    private String email;
 
-
-    public JwtUserDetails(String userName, String password, String token, List<GrantedAuthority> grantedAuthorities) {
+    public JwtUserDetails(String userName, String password, String token, List<GrantedAuthority> grantedAuthorities, String email) {
         this.userName = userName;
         this.password = password;
         this.token= token;
         this.authorities = grantedAuthorities;
+        this.email = email;
     }
 
     @Override
@@ -55,14 +61,4 @@ public class JwtUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
 }

@@ -1,4 +1,4 @@
-package br.com.edney.project.alfa.TemplateGraphQL.exception;
+package br.com.edney.project.alfa.TemplateGraphQL.exception.user;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,9 +11,13 @@ import graphql.language.SourceLocation;
 public class UserNotFoundException extends RuntimeException implements GraphQLError {
 	private Map<String, Object> extensions = new HashMap<>();
 	
-    public UserNotFoundException(String message, String invalidBookId) {
+    public UserNotFoundException(String message) {
         super(message);
-        extensions.put("invalidBookId", invalidBookId);
+    }
+    
+    public UserNotFoundException(String message, String invalidUserId) {
+        super(message);
+        extensions.put("invalidUserId", invalidUserId);
     }
     
     @Override

@@ -16,11 +16,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 @Component
 public class JwtGenerator {
-    public String generate(User jwtUser) {
-        Claims claims = Jwts.claims().setSubject(jwtUser.getUserName());
-        claims.put("password", String.valueOf(jwtUser.getPassword()));
-        claims.put("role", jwtUser.getRole());
-
+    public String generate(User user) {
+        Claims claims = Jwts.claims().setSubject(user.getUserName());
+        claims.put("password", String.valueOf(user.getPassword()));
+        claims.put("role", user.getRole());
+        claims.put("email", user.getEmail());
 
         return Jwts.builder()
                 .setClaims(claims)

@@ -21,7 +21,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
-
+    	// Aqui pode ser validado se o user está no banco de dados.
     }
 
     @Override
@@ -36,11 +36,8 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
             throw new RuntimeException("JWT Token is incorrect");
         }
 
-        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList(jwtUser.getRole());
-        return new JwtUserDetails(jwtUser.getUserName(), jwtUser.getPassword(),
-                token,
-                grantedAuthorities);
+        List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(jwtUser.getRole());
+        return new JwtUserDetails(jwtUser.getUserName(), jwtUser.getPassword(), token, grantedAuthorities, jwtUser.getEmail());
     }
 
     @Override
