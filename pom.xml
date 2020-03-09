@@ -35,6 +35,45 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!--  GraphQL -->
+		<dependency>
+		  <groupId>com.graphql-java-kickstart</groupId>
+		  <artifactId>graphql-spring-boot-starter</artifactId>
+		  <version>5.10.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.graphql-java-kickstart</groupId>
+		  <artifactId>graphql-java-tools</artifactId>
+		  <version>5.6.1</version>
+		</dependency>
+		
+		<!--  Banco de dados -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.javers</groupId>
+		    <artifactId>javers-spring-boot-starter-mongo</artifactId>
+		    <version>5.8.10</version>
+		</dependency>
+		
+		<!-- utilidades -->
+		<dependency>
+		  <groupId>com.graphql-java-kickstart</groupId>
+		  <artifactId>graphql-java-tools</artifactId>
+		  <version>5.6.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
