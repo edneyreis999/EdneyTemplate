@@ -1,7 +1,6 @@
 package br.com.edney.project.alfa.TemplateGraphQL.security;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,14 +16,16 @@ public class JwtUserDetails implements UserDetails {
     private String token;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
+    private Collection<String> roles;
     private String email;
 
-    public JwtUserDetails(String userName, String password, String token, List<GrantedAuthority> grantedAuthorities, String email) {
+    public JwtUserDetails(String userName, String password, String token, String email, Collection<String> roles, Collection<? extends GrantedAuthority> authorities) {
         this.userName = userName;
         this.password = password;
         this.token= token;
-        this.authorities = grantedAuthorities;
+        this.roles = roles;
         this.email = email;
+        this.authorities = authorities;
     }
 
     @Override

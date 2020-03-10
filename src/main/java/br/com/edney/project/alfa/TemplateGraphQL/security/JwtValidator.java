@@ -1,8 +1,9 @@
 package br.com.edney.project.alfa.TemplateGraphQL.security;
 
+import java.util.Collection;
+
 import org.springframework.stereotype.Component;
 
-import br.com.edney.project.alfa.TemplateGraphQL.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
@@ -10,8 +11,9 @@ import io.jsonwebtoken.Jwts;
 public class JwtValidator {
     private String secret = "Graphql";
 
-    public User validate(String token) {
-    	User jwtUser = null;
+    @SuppressWarnings("unchecked")
+	public JwtUserDetails validate(String token) {
+    	JwtUserDetails jwtUser = null;
         try {
             Claims body = Jwts.parser()
                     .setSigningKey(secret)
@@ -20,9 +22,13 @@ public class JwtValidator {
 
             String userName = body.getSubject();
 			String password = (String) body.get("password");
-			String role = (String) body.get("role");
 			String email = (String) body.get("email");
-			jwtUser = new User(userName, password, role, email);
+			Collection<String> roles = null;
+			if(body.get("roles") instanceof Collection) {
+				roles = (Collection<String>) body.get("roles");
+			}
+			
+			jwtUser = new JwtUserDetails(userName, password, token, email, roles, null);
         }
         catch (Exception e) {
             System.out.println(e);

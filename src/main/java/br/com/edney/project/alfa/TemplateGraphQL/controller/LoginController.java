@@ -1,8 +1,7 @@
 package br.com.edney.project.alfa.TemplateGraphQL.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +19,9 @@ public class LoginController {
     
 	@Autowired
 	private UserRepository userRepository;
+	
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public LoginController(JwtGenerator jwtGenerator) {
         this.jwtGenerator = jwtGenerator;
@@ -30,15 +32,17 @@ public class LoginController {
         String email = jwtUser.getEmail();
 		String password = jwtUser.getPassword();
 		
-		try {
-			List<User> users = userRepository.findByEmailAndPassword(email, password);
-			User user = users.get(0);
-
-	        return jwtGenerator.generate(user);
-		}catch (Exception e) {
-			throw new UserNotFoundException("User not found");
+		User user = userRepository.findByEmail(email);
+		if(user != null) {
+			boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
+			if(passwordMatches) {
+				return jwtGenerator.generate(user);
+			}else {
+				throw new UserNotFoundException("Password errado");
+			}
+		}else {
+			throw new UserNotFoundException("Password errado");
 		}
-
 
     }
 }

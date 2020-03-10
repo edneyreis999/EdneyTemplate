@@ -9,14 +9,18 @@ type Mutation {
 type User {
     id: String
     userName: String!
-    role: String!
+    roles: [RoleEnum]!
     email: String!
 }
 
 
 input CreateUserInput {
 	userName: String!
-    role: String!
     email: String!
     password: String!
+}
+
+enum RoleEnum {
+  ROLE_ADMIN
+  ROLE_USER
 }

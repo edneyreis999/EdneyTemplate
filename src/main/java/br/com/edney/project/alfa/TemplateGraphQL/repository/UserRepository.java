@@ -9,5 +9,5 @@ import br.com.edney.project.alfa.TemplateGraphQL.model.User;
 
 @JaversSpringDataAuditable
 public interface UserRepository extends MongoRepository<User, String>{
-	List<User> findByEmailAndPassword(final String email, final String password);
+	User findByEmail(final String email);
 }

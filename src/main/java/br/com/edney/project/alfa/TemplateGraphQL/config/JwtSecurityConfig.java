@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import br.com.edney.project.alfa.TemplateGraphQL.security.JwtAuthenticationEntryPoint;
@@ -56,5 +58,10 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
         System.out.println("/graphql patterns");
+    }
+    
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder(11);
     }
 }

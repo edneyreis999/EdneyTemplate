@@ -1,5 +1,6 @@
 package br.com.edney.project.alfa.TemplateGraphQL.security;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import br.com.edney.project.alfa.TemplateGraphQL.model.User;
 
 @Component
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
@@ -30,14 +29,20 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) usernamePasswordAuthenticationToken;
         String token = jwtAuthenticationToken.getToken();
 
-        User jwtUser = validator.validate(token);
+        JwtUserDetails jwtUser = validator.validate(token);
 
         if (jwtUser == null) {
             throw new RuntimeException("JWT Token is incorrect");
         }
 
-        List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(jwtUser.getRole());
-        return new JwtUserDetails(jwtUser.getUserName(), jwtUser.getPassword(), token, grantedAuthorities, jwtUser.getEmail());
+        String userName = jwtUser.getUsername();
+		String password = jwtUser.getPassword();
+		Collection<String> roles = jwtUser.getRoles();
+		String email = jwtUser.getEmail();
+
+		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(jwtUser.getRoles().toString());
+
+        return new JwtUserDetails(userName, password, token, email, roles, grantedAuthorities);
     }
 
     @Override
